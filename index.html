@@ -148,9 +148,53 @@
   .gift-box{display:none;margin-top:12px;background:var(--panel);border:1px solid #6a5722;border-radius:12px;padding:16px 18px}
   .gift-box.show{display:block}
   .gift-box .glabel{font-size:.72rem;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
-  .gift-box select{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
-    color:var(--txt);font-family:inherit;font-size:.94rem;padding:12px}
-  .gift-box select:focus{outline:none;border-color:var(--amber)}
+
+  /* kit chooser (same components as the athlete kit order form, dark-adapted) */
+  .kit-opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .kit-opt{border:2px solid var(--line);border-radius:12px;padding:14px 12px;text-align:center;
+    cursor:pointer;background:var(--panel2);display:flex;flex-direction:column;justify-content:flex-start;transition:.12s}
+  .kit-opt:hover{border-color:#4a4f56}
+  .kit-opt.sel{border-color:var(--amber);background:linear-gradient(165deg,#2a2113,var(--panel2) 75%)}
+  .kit-thumbs{display:flex;justify-content:center;gap:5px;margin-bottom:10px}
+  .kit-thumb{width:58px;height:58px;border-radius:9px;overflow:hidden;position:relative;flex:none}
+  .kit-thumb img{width:100%;height:100%;object-fit:cover;display:block;background:#ececec}
+  .kit-thumb .more{position:absolute;inset:0;background:rgba(19,19,19,.55);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+  .kit-opt-name{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:1.02rem;
+    line-height:1.15;letter-spacing:.03em}
+  .kit-opt-sub{font-size:12px;color:var(--muted);margin-top:6px}
+  .kit-sub{margin-top:4px}
+  .kit-sub-art{display:flex;gap:6px;max-width:400px;margin-bottom:4px}
+  .kit-sub-art img{width:calc(50% - 3px);aspect-ratio:1;object-fit:cover;border-radius:9px;background:#ececec}
+  .kit-sub-label{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:1.05rem;
+    letter-spacing:.04em;margin:14px 0 8px}
+  .kit-sub-label small{font-family:'Poppins',sans-serif;font-size:11.5px;text-transform:none;letter-spacing:0;
+    color:var(--muted);font-weight:400;margin-left:8px}
+  .prod-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+  .prod-card{border:2px solid var(--line);border-radius:10px;padding:6px 6px 8px;cursor:pointer;text-align:center;
+    background:var(--panel2);transition:.12s}
+  .prod-card:hover{border-color:#4a4f56}
+  .prod-card.sel{border-color:var(--amber);background:linear-gradient(165deg,#2a2113,var(--panel2) 75%)}
+  .prod-art{display:flex;gap:4px}
+  .prod-art img{width:calc(50% - 2px);aspect-ratio:3/4;object-fit:cover;border-radius:7px;background:#ececec}
+  .prod-card .nm{font-size:11px;font-weight:600;text-transform:uppercase;margin-top:5px;line-height:1.3}
+  .prod-card .cl{font-size:10.5px;color:var(--muted)}
+  .kit-size-row{max-width:220px}
+  .kit-size-row select{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+    color:var(--txt);font-family:inherit;font-size:.94rem;padding:11px 10px}
+  .kit-size-row select:focus{outline:none;border-color:var(--amber)}
+  .pack-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px}
+  .pack-card{border:2px solid var(--line);border-radius:10px;padding:6px 4px 7px;cursor:pointer;text-align:center;
+    background:var(--panel2);transition:.12s}
+  .pack-card:hover{border-color:#4a4f56}
+  .pack-card.sel{border-color:var(--amber);background:linear-gradient(165deg,#2a2113,var(--panel2) 75%)}
+  .pack-card img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:6px;background:#ececec}
+  .pack-card div{font-size:10.5px;font-weight:600;text-transform:uppercase;margin-top:4px;line-height:1.25}
+  @media(max-width:760px){
+    .kit-opts{grid-template-columns:1fr}
+    .prod-grid{grid-template-columns:1fr}
+    .pack-grid{grid-template-columns:repeat(3,1fr)}
+  }
 
   /* submit */
   .submit-row{margin:26px 0 0}
@@ -227,7 +271,7 @@
       <h2 class="display">Why Volunteer at the <em>Iron Games</em>?</h2>
       <ul>
         <li><b>Free event shirt</b> - Every volunteer gets this year's Iron Games volunteer tee. Just tell us your size below.</li>
-        <li><b>Work the whole weekend, earn a special gift</b> - All-weekend volunteers choose between a Born Primitive apparel kit, a Box Basics apparel kit, or a PWR Athlete backpack.</li>
+        <li><b>Work the whole weekend, earn a special gift</b> - All-weekend volunteers pick an athlete kit: a Box Basics short sleeve hoodie + hat, a Born Primitive apparel kit, or a PWR Athlete workout backpack.</li>
         <li><b>The best view in the house</b> - Volunteers are on the competition floor, closer to the action than any spectator.</li>
         <li><b>Make it happen</b> - The Iron Games doesn't exist without its volunteers. You are the reason 350+ athletes get their moment.</li>
       </ul>
@@ -294,13 +338,36 @@
           </div>
 
           <div class="gift-box" id="giftBox">
-            <div class="glabel">Choose your all-weekend gift *</div>
-            <select id="giftSelect">
-              <option value="">Choose your gift…</option>
-              <option>Born Primitive Apparel Kit</option>
-              <option>Box Basics Apparel Kit</option>
-              <option>PWR Athlete Backpack</option>
-            </select>
+            <div class="glabel">Choose your all-weekend gift * <span style="font-weight:400;text-transform:none;letter-spacing:0">— pick 1 of the 3 kit choices</span></div>
+            <div class="kit-opts" id="giftOpts">
+              <div class="kit-opt" data-opt="hoodie">
+                <div class="kit-thumbs">
+                  <span class="kit-thumb"><img src="assets/kits/hoodie-black.jpg" alt="" loading="lazy"></span>
+                  <span class="kit-thumb"><img src="assets/kits/hat.png" alt="" loading="lazy"></span>
+                </div>
+                <div class="kit-opt-name">Box Basics Short Sleeve Hoodie + Hat</div>
+                <div class="kit-opt-sub">Black hoodie &bull; hat included</div>
+              </div>
+              <div class="kit-opt" data-opt="bp">
+                <div class="kit-thumbs">
+                  <span class="kit-thumb"><img src="assets/kits/bp-bra-helix.jpg" alt="" loading="lazy"></span>
+                  <span class="kit-thumb"><img src="assets/kits/bp-short-synergy.jpg" alt="" loading="lazy"></span>
+                  <span class="kit-thumb"><img src="assets/kits/bp-bra-vitality.jpg" alt="" loading="lazy"></span>
+                </div>
+                <div class="kit-opt-name">Born Primitive Apparel Kit</div>
+                <div class="kit-opt-sub">pick a sports bra + a short</div>
+              </div>
+              <div class="kit-opt" data-opt="pack">
+                <div class="kit-thumbs">
+                  <span class="kit-thumb"><img src="assets/kits/pack-freedom.jpg" alt="" loading="lazy"></span>
+                  <span class="kit-thumb"><img src="assets/kits/pack-deadwood.jpg" alt="" loading="lazy"></span>
+                  <span class="kit-thumb"><img src="assets/kits/pack-solid-black.jpg" alt="" loading="lazy"><span class="more">+3</span></span>
+                </div>
+                <div class="kit-opt-name">PWR Athlete Workout Backpack</div>
+                <div class="kit-opt-sub">6 colors to choose from</div>
+              </div>
+            </div>
+            <div class="kit-sub" id="giftSub"></div>
           </div>
 
           <div class="day-label">Saturday · October 3</div>
@@ -390,7 +457,30 @@ var ROLES = [
   {name:'Help leading up to the competition', desc:'Prep work and odd jobs in the weeks before the Games.'}
 ];
 
+/* all-weekend gift kits — same choices as the athlete kit order form */
+var HOODIE_SIZES = ['S','M','L','XL','XXL'];
+var BP_BRAS = [
+  {id:'vitality', name:'Vitality Sports Bra 3.0', color:'Black', img:'assets/kits/bp-bra-vitality.jpg', back:'assets/kits/bp-bra-vitality-back.jpg'},
+  {id:'helix',    name:'Helix Sports Bra',        color:'Navy',  img:'assets/kits/bp-bra-helix.jpg',    back:'assets/kits/bp-bra-helix-back.jpg'},
+  {id:'serenity', name:'Serenity Sports Bra',     color:'Black', img:'assets/kits/bp-bra-serenity.jpg', back:'assets/kits/bp-bra-serenity-back.jpg'}
+];
+var BP_SHORTS = [
+  {id:'newheights', name:'New Heights Short', color:'Navy', img:'assets/kits/bp-short-newheights.jpg', back:'assets/kits/bp-short-newheights-back.jpg'},
+  {id:'endurance',  name:'Endurance Short',   color:'Navy', img:'assets/kits/bp-short-endurance.jpg',  back:'assets/kits/bp-short-endurance-back.jpg'},
+  {id:'synergy',    name:'Synergy Short 2.0', color:'Black', img:'assets/kits/bp-short-synergy.jpg',   back:'assets/kits/bp-short-synergy-back.jpg'}
+];
+var BP_SIZES = ['XS','S','M','L','XL'];
+var PACKS = [
+  {id:'freedom',     name:'Freedom Edition',  img:'assets/kits/pack-freedom.jpg'},
+  {id:'slate-grey',  name:'Slate Grey',       img:'assets/kits/pack-slate-grey.jpg'},
+  {id:'od-green',    name:'OD Green',         img:'assets/kits/pack-od-green.jpg'},
+  {id:'solid-black', name:'Solid Black',      img:'assets/kits/pack-solid-black.jpg'},
+  {id:'topo-black',  name:'Topography Black', img:'assets/kits/pack-topo-black.jpg'},
+  {id:'deadwood',    name:'Deadwood Camo',    img:'assets/kits/pack-deadwood.jpg'}
+];
+
 var state = { size:'', volBefore:'', judgedBefore:'', comfort:0 };
+var gift = { opt:null, hoodieSize:null, bra:null, braSize:null, short:null, shortSize:null, packColor:null };
 
 /* ---------- build pickers ---------- */
 var sp = document.getElementById('sizePills');
@@ -443,6 +533,88 @@ SHIFTS.forEach(function(sh){
   document.getElementById(sh.day==='sat'?'satCards':'sunCards').appendChild(makeShiftCard(sh));
 });
 
+/* ---------- all-weekend gift kit chooser ---------- */
+document.querySelectorAll('#giftOpts .kit-opt').forEach(function(card){
+  card.addEventListener('click', function(){
+    gift.opt = card.getAttribute('data-opt');
+    renderGift();
+  });
+});
+
+function renderGift(){
+  document.querySelectorAll('#giftOpts .kit-opt').forEach(function(c){
+    c.classList.toggle('sel', c.getAttribute('data-opt')===gift.opt);
+  });
+  var sub = document.getElementById('giftSub');
+  if (!gift.opt){ sub.innerHTML=''; return; }
+
+  if (gift.opt==='hoodie'){
+    sub.innerHTML =
+      '<div class="kit-sub-label">Hoodie Size <small>Black &bull; hat is one size fits all</small></div>'+
+      '<div class="kit-size-row"><select id="giftHoodieSize"><option value="">Size…</option>'+
+        HOODIE_SIZES.map(function(s){ return '<option'+(gift.hoodieSize===s?' selected':'')+'>'+s+'</option>'; }).join('')+
+      '</select></div>';
+    document.getElementById('giftHoodieSize').onchange = function(){ gift.hoodieSize = this.value || null; };
+
+  } else if (gift.opt==='bp'){
+    sub.innerHTML =
+      '<div class="kit-sub-label">Sports Bra <small>pick one - front &amp; back shown</small></div>'+
+      '<div class="prod-grid">'+BP_BRAS.map(function(b){ return (
+        '<div class="prod-card'+(gift.bra===b.id?' sel':'')+'" data-bra="'+b.id+'">'+
+          '<div class="prod-art"><img src="'+b.img+'" alt="" loading="lazy"><img src="'+b.back+'" alt="" loading="lazy"></div>'+
+          '<div class="nm">'+b.name+'</div><div class="cl">'+b.color+'</div>'+
+        '</div>'); }).join('')+'</div>'+
+      '<div class="kit-sub-label">Bra Size</div>'+
+      '<div class="kit-size-row"><select id="giftBraSize"><option value="">Size…</option>'+
+        BP_SIZES.map(function(s){ return '<option'+(gift.braSize===s?' selected':'')+'>'+s+'</option>'; }).join('')+
+      '</select></div>'+
+      '<div class="kit-sub-label">Short <small>pick one - front &amp; back shown</small></div>'+
+      '<div class="prod-grid">'+BP_SHORTS.map(function(s2){ return (
+        '<div class="prod-card'+(gift.short===s2.id?' sel':'')+'" data-short="'+s2.id+'">'+
+          '<div class="prod-art"><img src="'+s2.img+'" alt="" loading="lazy"><img src="'+s2.back+'" alt="" loading="lazy"></div>'+
+          '<div class="nm">'+s2.name+'</div><div class="cl">'+s2.color+'</div>'+
+        '</div>'); }).join('')+'</div>'+
+      '<div class="kit-sub-label">Short Size</div>'+
+      '<div class="kit-size-row"><select id="giftShortSize"><option value="">Size…</option>'+
+        BP_SIZES.map(function(s){ return '<option'+(gift.shortSize===s?' selected':'')+'>'+s+'</option>'; }).join('')+
+      '</select></div>';
+    sub.querySelectorAll('[data-bra]').forEach(function(pc){ pc.onclick=function(){ gift.bra=pc.getAttribute('data-bra'); renderGift(); }; });
+    sub.querySelectorAll('[data-short]').forEach(function(pc){ pc.onclick=function(){ gift.short=pc.getAttribute('data-short'); renderGift(); }; });
+    document.getElementById('giftBraSize').onchange = function(){ gift.braSize = this.value || null; };
+    document.getElementById('giftShortSize').onchange = function(){ gift.shortSize = this.value || null; };
+
+  } else if (gift.opt==='pack'){
+    sub.innerHTML =
+      '<div class="kit-sub-label">Backpack Color</div>'+
+      '<div class="pack-grid">'+PACKS.map(function(p){ return (
+        '<div class="pack-card'+(gift.packColor===p.id?' sel':'')+'" data-p="'+p.id+'">'+
+          '<img src="'+p.img+'" alt="" loading="lazy"><div>'+p.name+'</div>'+
+        '</div>'); }).join('')+'</div>';
+    sub.querySelectorAll('.pack-card').forEach(function(pc){ pc.onclick=function(){ gift.packColor=pc.getAttribute('data-p'); renderGift(); }; });
+  }
+}
+
+function giftComplete(){
+  if (!gift.opt) return false;
+  if (gift.opt==='hoodie') return !!gift.hoodieSize;
+  if (gift.opt==='bp') return !!(gift.bra && gift.braSize && gift.short && gift.shortSize);
+  if (gift.opt==='pack') return !!gift.packColor;
+  return false;
+}
+function giftLabel(){
+  if (gift.opt==='hoodie') return 'Box Basics Short Sleeve Hoodie + Hat - Black, size '+gift.hoodieSize+' (hat one size)';
+  if (gift.opt==='bp'){
+    var b = BP_BRAS.filter(function(x){return x.id===gift.bra;})[0];
+    var s = BP_SHORTS.filter(function(x){return x.id===gift.short;})[0];
+    return 'Born Primitive Apparel Kit - '+b.name+' ('+b.color+') size '+gift.braSize+' + '+s.name+' ('+s.color+') size '+gift.shortSize;
+  }
+  if (gift.opt==='pack'){
+    var p = PACKS.filter(function(x){return x.id===gift.packColor;})[0];
+    return 'PWR Athlete Workout Backpack - '+p.name;
+  }
+  return '';
+}
+
 /* all-weekend: checks + locks the 5 slots, reveals gift picker */
 var awChk = document.getElementById('chk_allweekend');
 awChk.addEventListener('change', function(){
@@ -455,7 +627,10 @@ awChk.addEventListener('change', function(){
     card.classList.toggle('checked', on);
     card.classList.toggle('locked', on);
   });
-  if (!on) document.getElementById('giftSelect').value='';
+  if (!on){
+    gift = { opt:null, hoodieSize:null, bra:null, braSize:null, short:null, shortSize:null, packColor:null };
+    renderGift();
+  }
 });
 
 /* ---------- role cards ---------- */
@@ -495,9 +670,14 @@ document.getElementById('volForm').addEventListener('submit', function(ev){
                      .map(function(sh){ return sh.full; });
   if (!shifts.length)
     return fail('Check at least one time slot you can work.', 'sec-shifts');
-  var gift = document.getElementById('giftSelect').value;
-  if (allWeekend && !gift)
-    return fail('You went all weekend - nice! Now choose your special gift.', 'sec-shifts');
+  if (allWeekend && !gift.opt)
+    return fail('You went all weekend - nice! Now pick 1 of the 3 gift kits.', 'sec-shifts');
+  if (allWeekend && !giftComplete()){
+    if (gift.opt==='hoodie') return fail('Pick your hoodie size.', 'sec-shifts');
+    if (gift.opt==='bp')     return fail('Finish your Born Primitive kit: pick a sports bra + size and a short + size.', 'sec-shifts');
+    if (gift.opt==='pack')   return fail('Pick your backpack color.', 'sec-shifts');
+  }
+  var giftText = allWeekend ? giftLabel() : '';
 
   if (!state.volBefore || !state.judgedBefore)
     return fail('Please answer both experience questions.', 'sec-exp');
@@ -513,7 +693,7 @@ document.getElementById('volForm').addEventListener('submit', function(ev){
     action:'ironGamesVolunteer',
     name:name, email:email, phone:phone,
     shirtSize:state.size,
-    allWeekend:allWeekend, gift:allWeekend?gift:'',
+    allWeekend:allWeekend, gift:giftText,
     shifts:shifts,
     volunteeredBefore:state.volBefore,
     judgedBefore:state.judgedBefore,
@@ -535,7 +715,7 @@ document.getElementById('volForm').addEventListener('submit', function(ev){
     row('Name', name);
     row('Shirt size', state.size);
     row('Shifts', allWeekend ? 'All Weekend ('+shifts.length+' shifts)' : shifts.join(', '));
-    if (allWeekend && gift) row('All-weekend gift', gift);
+    if (allWeekend && giftText) row('All-weekend gift', giftText);
     row('Roles', roles.join(', '));
     document.getElementById('successBox').style.display='block';
     document.getElementById('successBox').scrollIntoView({behavior:'smooth'});
